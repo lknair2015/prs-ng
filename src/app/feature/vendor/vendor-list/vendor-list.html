@@ -1,0 +1,48 @@
+<div class="p-4">
+  <section class="heading d-flex justify-content-between align-items-center">
+    <div class="heading d-flex align-items-center">
+      <span class="fw-bold fst-italic">[{{ title }}]</span>
+      <a style="padding-left: 20px;" routerLink="/vendor-create">
+        <img width="20" height="20" src="images/add-icon.png" title="Add Vendor" />
+      </a>
+    </div>
+    <span style="margin-right: 10px;" class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
+  </section>
+  <br>
+  <table *ngIf="vendors" class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of vendors">
+        <td>{{ v.code }}</td>
+        <td>{{ v.name}}</td>
+        <td>{{ v.address}}</td>
+        <td>{{ v.city}}</td>
+        <td>{{ v.state}}</td>
+        <td>{{ v.zip}}</td>
+        <td>{{ v.phoneNumber}}</td>
+        <td>{{ v.email}}</td>
+
+        <td>
+          <a routerLink="/vendor-edit/{{v.id}}">
+            <img src="images/pencil-icon.png" width="20" height="20" title="Edit Vendor" /></a>
+          |
+          <a routerLink="/vendor-detail/{{v.id}}">
+            <img src="images/details.png" width="20" height="20" title="Vendor Details" />
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

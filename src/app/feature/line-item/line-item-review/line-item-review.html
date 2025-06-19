@@ -1,0 +1,60 @@
+<div *ngIf="request" class="component">
+    <section class="heading d-flex justify-content-between align-items-center">
+        <div class="heading d-flex align-items-center">
+            <span class="fw-bold fst-italic">[{{ title }}]</span>
+            <a style="padding-left: 20px;" routerLink="/request-review">Return to List</a>
+        </div>
+        <span class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
+    </section>
+    <br>
+    <table *ngIf="request" class="table table-striped table-hover">
+        <thead>
+            <th>User</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ request.user.firstName+" "+request.user.lastName }}</td>
+                <td>{{ request.description }}</td>
+                <td>{{ request.status}}</td>
+                <td>{{ request.total}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <section class="heading d-flex justify-content-between align-items-center">
+        <div class="heading d-flex align-items-center">
+            <span class="fw-bold fst-italic">[{{ subTitle }}]</span>
+        </div>
+    </section>
+
+    <table *ngIf="lineItems" class="table table-striped table-hover">
+        <thead>
+            <th>Vendor</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Line Total</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let l of lineItems">
+                <td>{{l.product.vendor.name }}</td>
+                <td>{{l.product.name }}</td>
+                <td>{{l.quantity }}</td>
+                <td>{{l.product.price }}</td>
+                <td>{{l.quantity * l.product.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <span>
+
+        <button type="submit" class="btn btn-primary mb-2" style="margin: 10px;" (click)="approve()">Approve</button>
+        <label class="fw-bold fst-italic"> Or provide reason for Rejection: </label>
+        <input [(ngModel)]="requestReject.reason" type="text" class="border border-dark rounded"
+            style="width: 40%; padding: 5px; margin: 10px;" title="reasonForJustification" />
+        <button *ngIf="requestReject.reason != ''"  type="submit" class="btn btn-danger mb-2" (click)="reject()">Reject</button>
+
+    </span>
+</div>
