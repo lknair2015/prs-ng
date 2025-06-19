@@ -7,11 +7,11 @@
     <span class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
   </section>
   <br>
-  <table class="table" style="width: 60%;">
+  <table class="table table-sm" style="width: 60%;">
     <tr>
       <th>Vendor: </th>
       <td>
-          <select [(ngModel)]="product.vendor" class="rounded">
+          <select [(ngModel)]="product.vendor" class="rounded" style="width: 100%;">
             <option *ngFor="let v of vendors" [ngValue]="v">
               {{ v.name }}
             </option>
@@ -22,40 +22,40 @@
     <tr>
       <th>Part Number:</th>
       <td>
-        <input [(ngModel)]="product.partNumber" type="text" class="form-control" style="border: solid;"style="border: solid;" title="partNumber"/>
+        <input [(ngModel)]="product.partNumber" type="text" class="form-control border border-dark rounded" title="partNumber"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Name:</th>
       <td>
-        <input [(ngModel)]="product.name" type="text" class="form-control" style="border: solid;" title="name"/>
+        <input [(ngModel)]="product.name" type="text" class="form-control border border-dark rounded" title="name"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Price:</th>
       <td>
-        <input [(ngModel)]="product.price" type="text" class="form-control" style="border: solid;" title="price"/>
+        <input [(ngModel)]="product.price" type="number" class="form-control border border-dark rounded" title="price"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Unit:</th>
       <td>
-        <input [(ngModel)]="product.unit" type="text" class="form-control" style="border: solid;" title="unit"/>
+        <input [(ngModel)]="product.unit" type="text" class="form-control border border-dark rounded" title="unit"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Photopath:</th>
       <td>
-        <input [(ngModel)]="product.photoPath" type="text" class="form-control" style="border: solid;" title="photoPath"/>
+        <input [(ngModel)]="product.photoPath" type="text" class="form-control border border-dark rounded" title="photoPath"/>
       </td>
     </tr>
   </table>
   <br>
-  <button  type="submit" class="btn btn-primary mb-2"  (click)="addProduct()">Create</button>
+  <button  type="submit" class="btn btn-primary mb-2"  (click)="add()">Create</button>
 </div>
 
 

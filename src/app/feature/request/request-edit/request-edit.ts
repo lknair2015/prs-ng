@@ -27,6 +27,8 @@ export class RequestEdit implements OnInit, OnDestroy{
 
   users: User[] = [];
 
+  mode : string[] = ["Pickup", "Delivery"];
+
   constructor(
     private requestSvc: RequestService, 
     private router: Router,

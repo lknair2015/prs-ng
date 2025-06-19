@@ -3,6 +3,7 @@ import { Vendor } from '../../../model/vendor';
 import { Subscription } from 'rxjs';
 import { VendorService } from '../../../service/vendor-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../service/auth-service';
 
 @Component({
   selector: 'app-vendor-edit',
@@ -14,7 +15,7 @@ export class VendorEdit implements OnInit, OnDestroy {
 
   title: string = 'Vendor Edit';
 
-  loggedInUser : string = 'temp';
+  loggedInUser : string = '';
 
   vendor! : Vendor;
 
@@ -22,9 +23,17 @@ export class VendorEdit implements OnInit, OnDestroy {
 
   subscription! : Subscription;
 
-  constructor(private vendorSvc : VendorService, private router: Router, private activateRoute: ActivatedRoute){}
+  constructor(
+    private vendorSvc : VendorService, 
+    private router: Router, 
+    private activateRoute: ActivatedRoute,
+    private authSvc : AuthService
+  ){}
 
   ngOnInit(): void {
+
+    this.loggedInUser = this.authSvc.getUser().username;
+
     this.activateRoute.params.subscribe((parms) => {
       this.vendorId = parms['id'];
 

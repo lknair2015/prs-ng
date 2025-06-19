@@ -11,40 +11,44 @@
     <tr>
       <th>User: </th>
       <td>
-        <input type="text" class="form-control" style="border: solid;" title="partNumber" [value]="userFullName" disabled/>
+        <input type="text" class="form-control border border-dark rounded" title="partNumber" [value]="userFullName" disabled/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Description:</th>
       <td>
-        <input [(ngModel)]="requestNew.description" type="text" class="form-control" style="border: solid;" title="description"/>
+        <input [(ngModel)]="requestNew.description" type="text" class="form-control border border-dark rounded" title="description"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Justification:</th>
       <td>
-        <input [(ngModel)]="requestNew.justification" type="text" class="form-control" style="border: solid;" title="justification"/>
+        <input [(ngModel)]="requestNew.justification" type="text" class="form-control border border-dark rounded" title="justification"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Date Needed:</th>
       <td>
-        <input [(ngModel)]="requestNew.dateNeeded" type="date" class="form-control" style="border: solid;" title="dateNeeded"/>
+        <input [(ngModel)]="requestNew.dateNeeded" type="date" class="form-control border border-dark rounded" title="dateNeeded"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Delivery Mode:</th>
       <td>
-        <input [(ngModel)]="requestNew.deliveryMode" type="text" class="form-control" style="border: solid;" title="deliveryMode"/>
+        <select [(ngModel)]="requestNew.deliveryMode" class="rounded" style="width: 100%;">
+            <option *ngFor="let m of mode" [ngValue]="m">
+              {{ m }}
+            </option>
+        </select>
       </td>
     </tr>
   </table>
   <br>
-  <button  type="submit" class="btn btn-primary mb-2"  (click)="addRequest()">Create</button>
+  <button  type="submit" class="btn btn-primary mb-2"  (click)="add()">Create</button>
 </div>
 
 

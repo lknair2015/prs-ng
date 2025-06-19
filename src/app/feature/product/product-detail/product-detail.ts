@@ -3,6 +3,7 @@ import { Product } from '../../../model/product';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../service/product-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../service/auth-service';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,7 +15,7 @@ export class ProductDetail implements OnInit, OnDestroy{
 
   title: String = "Product Detail";
 
-  loggedInUser: string = "temp";
+  loggedInUser: string = "";
 
   product! : Product;
 
@@ -23,9 +24,16 @@ export class ProductDetail implements OnInit, OnDestroy{
   subscription! : Subscription;
   
 
-  constructor( private productSvc: ProductService, private router : Router, private actRoute : ActivatedRoute ){}
+  constructor( 
+    private productSvc: ProductService, 
+    private router : Router, 
+    private actRoute : ActivatedRoute,
+    private authSvc : AuthService
+  ){}
 
   ngOnInit(): void {
+
+    this.loggedInUser = this.authSvc.getUser().username;
 
     this.actRoute.params.subscribe((parms) => {
         this.productId = parms['id'];

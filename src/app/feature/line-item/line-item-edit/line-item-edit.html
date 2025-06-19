@@ -4,15 +4,15 @@
             <span class="fw-bold fst-italic">[{{ title }}] - PR ID: {{requestId}}</span>
             <a style="padding-left: 20px;" routerLink="/line-item-list/{{requestId}}">Return to List</a>
         </div>
-        <span class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
+        <span style="margin: 10px;"  class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
     </section>
     <br>
 
-    <table class="table table-sm">
+    <table class="table table-sm" style="width: 40%;">
         <tr>
             <th>Product: </th>
             <td>
-                <select [(ngModel)]="lineItem.product" class="rounded" [compareWith]="compProduct">
+                <select [(ngModel)]="lineItem.product" class="rounded" style="width: 100%;" [compareWith]="compProduct">
                     <option *ngFor="let p of products" [ngValue]="p">
                         {{ p.name }}
                     </option>
@@ -24,7 +24,7 @@
             <th>Quantity:</th>
             <td>
                 <input [(ngModel)]="lineItem.quantity" type="number" class="form-control border border-dark rounded"
-                    style="width: 10%;" title="quantity" />
+                    title="quantity" />
             </td>
         </tr>
     </table>

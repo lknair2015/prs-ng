@@ -7,65 +7,69 @@
     <span style="margin-right: 10px;" class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
   </section>
   <br>
-  <table class="table table-sm" style="width: 60%;">
+  <table class="table table-sm" style="width: 50%;">
     <tr>
       <th>code: </th>
       <td>
-        <input [(ngModel)]="vendor.code" type="text" class="form-control" style="border: solid;" title="code"/>
+        <input [(ngModel)]="vendor.code" type="text" class="form-control border border-dark rounded" title="code"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Name:</th>
       <td>
-        <input [(ngModel)]="vendor.name" type="text" class="form-control" style="border: solid;"style="border: solid;" title="name"/>
+        <input [(ngModel)]="vendor.name" type="text" class="form-control border border-dark rounded" title="name"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Address:</th>
       <td>
-        <input [(ngModel)]="vendor.address" type="text" class="form-control" style="border: solid;" title="address"/>
+        <input [(ngModel)]="vendor.address" type="text" class="form-control border border-dark rounded" title="address"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>State:</th>
       <td>
-        <input [(ngModel)]="vendor.state" type="text" class="form-control" style="border: solid;" title="state"/>
+        <select [(ngModel)]="vendor.state" class="rounded" style="width: 100%;">
+            <option *ngFor="let s of states" [ngValue]="s">
+              {{ s }}
+            </option>
+        </select>
       </td>
     </tr>
     <br>
     <tr>
       <th>City:</th>
       <td>
-        <input [(ngModel)]="vendor.city" type="text" class="form-control" style="border: solid;" title="city"/>
+        <input [(ngModel)]="vendor.city" type="text" class="form-control border border-dark rounded" title="city"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Zip:</th>
       <td>
-        <input [(ngModel)]="vendor.zip" type="text" class="form-control" style="border: solid;" title="zip"/>
+        <input [(ngModel)]="vendor.zip" type="text" class="form-control border border-dark rounded" title="zip"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Phone Number:</th>
       <td>
-        <input [(ngModel)]="vendor.phoneNumber" type="text" class="form-control" style="border: solid;" title="phoneNumber"/>
+        <input [(ngModel)]="vendor.phoneNumber" type="text" class="form-control border border-dark rounded" title="phoneNumber"/>
       </td>
     </tr>
     <br>
     <tr>
       <th>Email:</th>
       <td>
-        <input [(ngModel)]="vendor.email" type="text" class="form-control" style="border: solid;" title="email"/>
+        <input [(ngModel)]="vendor.email" type="text" class="form-control border border-dark rounded" title="email"/>
       </td>
     </tr>
   </table>
   <br>
-  <button  type="submit" class="btn btn-primary mb-2"  (click)="addVendor()">Create</button>
+  <button  type="submit" class="btn btn-primary mb-2"  (click)="add()">Create</button>
 </div>
 
 

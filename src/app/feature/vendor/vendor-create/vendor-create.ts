@@ -15,13 +15,25 @@ export class VendorCreate implements OnInit, OnDestroy{
 
   title: string = "Vendor Create";
 
-  loggedInUser = "temp";
+  loggedInUser = "";
 
   vendor : Vendor = new Vendor();
 
   subscription ! : Subscription;
 
-  constructor(private vendorSvc: VendorService, private router: Router, private authSvc : AuthService){}
+  states: string[] = [
+    'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+    'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+    'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+    'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+    'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+  ];
+
+  constructor(
+    private vendorSvc: VendorService, 
+    private router: Router, 
+    private authSvc : AuthService
+  ){}
 
   ngOnInit(): void {
     
@@ -29,7 +41,7 @@ export class VendorCreate implements OnInit, OnDestroy{
     
   }
 
-  addVendor(): void {
+  add(): void {
 
     this.subscription = this.vendorSvc.add(this.vendor).subscribe({
       next: (resp) => {

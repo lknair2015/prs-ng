@@ -1,115 +1,82 @@
-
-<div *ngIf="user" class="component">
+<div *ngIf="user" class="component p-4">
   <section class="heading d-flex justify-content-between align-items-center">
     <div class="heading d-flex align-items-center">
-    <span class="fw-bold fst-italic">[{{ title }}]</span>
-    <a style="padding-left: 20px;"   routerLink="/user-list">Return to List</a>
+      <span class="fw-bold fst-italic">[{{ title }}]</span>
+      <a style="padding-left: 20px;" routerLink="/user-list">Return to List</a>
     </div>
-    <span class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
+    <span style="margin: 10px;" class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
   </section>
   <br>
   <main class="single">
-    <table class="table table-sm">
+    <table class="table table-sm" style="width: 50%;">
       <tr>
-        <td>ID</td>
+        <th>Id</th>
         <td>{{ user.id }}</td>
       </tr>
+      <br>
       <tr>
-        <td>Username:</td>
+        <th>Username:</th>
         <td>
-          <input
-            [(ngModel)]="user.username"
-            class="rounded"
-            type="text"
-            disabled
-          />
+          <input [(ngModel)]="user.username" class="form-control border border-dark rounded" type="text" disabled />
         </td>
       </tr>
+      <br>
       <tr>
-        <td>Password:</td>
+        <th>Password:</th>
         <td>
-          <input
-            [(ngModel)]="user.password"
-            class="rounded"
-            type="text"
-            disabled
-          />
+          <input [(ngModel)]="user.password" class="form-control border border-dark rounded" type="text" disabled />
         </td>
       </tr>
+      <br>
       <tr>
-        <td>First Name:</td>
+        <th>First Name:</th>
         <td>
-          <input
-            [(ngModel)]="user.firstName"
-            class="rounded"
-            type="text"
-            disabled
-          />
+          <input [(ngModel)]="user.firstName" class="form-control border border-dark rounded" type="text" disabled />
         </td>
       </tr>
+      <br>
       <tr>
-        <td>Last Name:</td>
+        <th>Last Name:</th>
         <td>
-          <input
-            [(ngModel)]="user.lastName"
-            class="rounded"
-            type="text"
-            disabled
-          />
+          <input [(ngModel)]="user.lastName" class="form-control border border-dark rounded" type="text" disabled />
         </td>
       </tr>
+      <br>
       <tr>
-        <td>Phone Number:</td>
+        <th>Phone Number:</th>
         <td>
-          <input
-            [(ngModel)]="user.phoneNumber"
-            class="rounded"
-            type="text"
-            disabled
-          />
+          <input [(ngModel)]="user.phoneNumber" class="form-control border border-dark rounded" type="text" disabled />
         </td>
       </tr>
+      <br>
       <tr>
-        <td>Email:</td>
+        <th>Email:</th>
         <td>
-          <input
-            [(ngModel)]="user.email"
-            class="rounded"
-            type="text"
-            disabled
-          />
+          <input [(ngModel)]="user.email" class="form-control border border-dark rounded" type="text" disabled />
         </td>
       </tr>
+      <br>
       <tr>
-        <td>Reviewer:</td>
+        <th>Reviewer:</th>
         <td>
-            <input 
-                type="checkbox" [checked]="user.reviewer" disabled
-            /> 
+          <input type="checkbox" [checked]="user.reviewer" disabled />
         </td>
       </tr>
+      <br>
       <tr>
-        <td>Admin:</td>
+        <th>Admin:</th>
         <td>
-            <input 
-                type="checkbox" [checked]="user.admin" disabled
-            /> 
+          <input type="checkbox" [checked]="user.admin" disabled />
         </td>
       </tr>
     </table>
   </main>
   <span>
-    <span
-      ><a routerLink="/user-edit/{{ user.id }}" class="btn btn-sm btn-warning"
-        >Edit</a
-      ></span
-    >
+    <span><a routerLink="/user-edit/{{ user.id }}" class="btn btn-sm btn-warning">Edit</a></span>
     <span style="padding-left: 20px;">
-       
+
       <button (click)="delete()" class="btn btn-sm btn-danger">
         Delete
-      </button></span
-    >
+      </button></span>
   </span>
 </div>
-

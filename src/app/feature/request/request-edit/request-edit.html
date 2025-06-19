@@ -1,85 +1,90 @@
-<div *ngIf="request" class="component">
+<div *ngIf="request" class="component p-4">
     <section class="heading d-flex justify-content-between align-items-center">
         <div class="heading d-flex align-items-center">
             <span class="fw-bold fst-italic">[{{ title }}]</span>
             <a style="padding-left: 20px;" routerLink="/request-list">Return to List</a>
         </div>
-        <span class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
+        <span style="margin: 10px;" class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
     </section>
     <br>
     <main class="single">
-        <table class="table table-sm">
+        <table class="table table-sm" style="width: 50%;">
             <tr>
-                <td>Id:</td>
+                <th>Id:</th>
                 <td>{{ request.id }}</td>
             </tr>
+            <br>
             <tr>
-                <td>User:</td>
+                <th>User:</th>
                 <td>
-                    <input [(ngModel)]="request.user.firstName" class="rounded" type="text"  />
+                    <input [(ngModel)]="request.user.firstName" class="form-control border border-dark rounded"
+                        type="text" />
                 </td>
             </tr>
+            <br>
             <tr>
-                <td>Request Number:</td>
+                <th>Request Number:</th>
                 <td>
-                    <input [(ngModel)]="request.requestNumber" class="rounded" type="text" disabled />
+                    <input [(ngModel)]="request.requestNumber" class="form-control border border-dark rounded"
+                        type="text" disabled />
                 </td>
             </tr>
+            <br>
             <tr>
-                <td>Description:</td>
+                <th>Description:</th>
                 <td>
-                    <input [(ngModel)]="request.description" class="rounded" type="text"  />
+                    <input [(ngModel)]="request.description" class="form-control border border-dark rounded"
+                        type="text" />
                 </td>
             </tr>
+            <br>
             <tr>
-                <td>Justification:</td>
+                <th>Justification:</th>
                 <td>
-                    <input [(ngModel)]="request.justification" class="rounded" type="text"  />
+                    <input [(ngModel)]="request.justification" class="form-control border border-dark rounded"
+                        type="text" />
                 </td>
             </tr>
+            <br>
             <tr>
-                <td>Date Needed:</td>
+                <th>Date Needed:</th>
                 <td>
-                    <input [(ngModel)]="request.dateNeeded" class="rounded" type="text"  />
+                    <input [(ngModel)]="request.dateNeeded" class="form-control border border-dark rounded"
+                        type="text" />
                 </td>
             </tr>
+            <br>
             <tr>
-                <td>Delivery Mode:</td>
+                <th>Delivery Mode:</th>
                 <td>
-                    <input [(ngModel)]="request.deliveryMode" class="rounded" type="text"  />
+                    <select [(ngModel)]="request.deliveryMode" class="rounded" style="width: 100%;">
+                        <option *ngFor="let m of mode" [ngValue]="m">{{m}}</option>
+                    </select>
                 </td>
             </tr>
+            <br>
             <tr>
-                <td>Status:</td>
+                <th>Status:</th>
                 <td>
-                    <input [(ngModel)]="request.status" class="rounded" type="text" disabled />
+                    <input [(ngModel)]="request.status" class="form-control border border-dark rounded" type="text"
+                        disabled />
                 </td>
             </tr>
+            <br>
             <tr>
-                <td>Total:</td>
+                <th>Total:</th>
                 <td>
-                    <input [(ngModel)]="request.total" class="rounded" type="text" disabled />
-                </td>
-            </tr>
-            <tr>
-                <td>Submitted Date:</td>
-                <td>
-                    <input [(ngModel)]="request.submittedDate" class="rounded" type="text" disabled />
-                </td>
-            </tr>
-            <tr>
-                <td>Reason for Justification:</td>
-                <td>
-                    <input [(ngModel)]="request.reasonForJustification" class="rounded" type="text" disabled />
+                    <input [(ngModel)]="request.total" class="form-control border border-dark rounded" type="text"
+                        disabled />
                 </td>
             </tr>
         </table>
     </main>
-    <span >
-        
+    <span>
+
         <span style="padding-left: 20px;">
 
-            <button  type="submit" class="btn btn-primary mb-2"  (click)="save()">Save</button>
+            <button type="submit" class="btn btn-primary mb-2" (click)="save()">Save</button>
         </span>
     </span>
 </div>

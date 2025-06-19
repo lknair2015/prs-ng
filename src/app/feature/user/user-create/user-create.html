@@ -11,29 +11,32 @@
     <tr>
       <th>Username: </th>
       <td>
-        <input [(ngModel)]="user.username" type="text" class="form-control border border-dark rounded" title="username" />
+        <input [(ngModel)]="user.username" type="text" class="form-control border border-dark rounded"
+          title="username" />
       </td>
     </tr>
     <br>
     <tr>
       <th>Password:</th>
       <td>
-        <input [(ngModel)]="user.password" type="text" class="form-control border border-dark rounded" style="border: solid;"
-          style="border: solid;" title="password" />
+        <input [(ngModel)]="user.password" type="text" class="form-control border border-dark rounded"
+          title="password" />
       </td>
     </tr>
     <br>
     <tr>
       <th>First Name:</th>
       <td>
-        <input [(ngModel)]="user.firstName" type="text" class="form-control border border-dark rounded" title="firstName" />
+        <input [(ngModel)]="user.firstName" type="text" class="form-control border border-dark rounded"
+          title="firstName" />
       </td>
     </tr>
     <br>
     <tr>
       <th>Last Name:</th>
       <td>
-        <input [(ngModel)]="user.lastName" type="text" class="form-control border border-dark rounded"  title="lastname" />
+        <input [(ngModel)]="user.lastName" type="text" class="form-control border border-dark rounded"
+          title="lastname" />
       </td>
     </tr>
     <br>
@@ -67,5 +70,5 @@
     </tr>
   </table>
   <br>
-  <button type="submit" class="btn btn-primary mb-2" (click)="addUser()">Create</button>
+  <button type="submit" class="btn btn-primary mb-2" (click)="add()">Create</button>
 </div>

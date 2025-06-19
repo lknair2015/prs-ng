@@ -28,23 +28,31 @@ export class RequestCreate implements OnInit, OnDestroy{
 
   subscription ! : Subscription;
 
-  constructor(private requestSvc: RequestService, private router: Router, private userSvc : UserService , private authSvc: AuthService){}
+  mode : string[] = ["Pickup", "Delivery"];
+
+  constructor(
+    private requestSvc: RequestService, 
+    private router: Router, 
+    private userSvc : UserService , 
+    private authSvc: AuthService
+  ){}
 
   ngOnInit(): void {
 
     this.loggedInUser = this.authSvc.getUser().username;
 
-    this.userFullName = this.authSvc.getUser().firstName + this.authSvc.getUser().lastName;
+    this.userFullName = this.authSvc.getUser().firstName +" "+ this.authSvc.getUser().lastName;
   
     this.requestNew.userId = this.authSvc.getUser().id;
     
   }
 
-  addRequest(): void {
-
+  add(): void {
+    console.log(this.requestNew);
     this.subscription = this.requestSvc.add(this.requestNew).subscribe({
       next: (resp) => {
         this.request = resp;
+        console.log(this.request);
         this.router.navigateByUrl('/request-list');
       },
       error: (err) => {
