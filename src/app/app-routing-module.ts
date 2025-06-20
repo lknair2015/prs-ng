@@ -24,6 +24,7 @@ import { LineItemEdit } from './feature/line-item/line-item-edit/line-item-edit'
 import { RequestReview } from './feature/request/request-review/request-review';
 import { LineItemReview } from './feature/line-item/line-item-review/line-item-review';
 import { Logout } from './feature/login/logout/logout';
+import { NotFound } from './core/not-found/not-found/not-found';
 
 const routes: Routes = [
   {path: '', redirectTo: '/user-list', pathMatch: 'full'},
@@ -50,7 +51,8 @@ const routes: Routes = [
   {path: 'line-item-edit/:id/:anotherId', component: LineItemEdit},
   {path: 'line-item-review/:id', component: LineItemReview},
   {path: 'login', component: Login},
-  {path: 'logout', component: Logout}
+  {path: 'logout', component: Logout},
+  {path: '**' , component : NotFound}
 ];
 
 @NgModule({

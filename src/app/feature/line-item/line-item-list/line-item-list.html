@@ -19,7 +19,7 @@
                 <td>{{ request.user.firstName+" "+request.user.lastName }}</td>
                 <td>{{ request.description }}</td>
                 <td>{{ request.status}}</td>
-                <td>{{ request.total}}</td>
+                <td>{{ request.total | currency}}</td>
             </tr>
         </tbody>
     </table>
@@ -47,8 +47,8 @@
                 <td>{{l.product.vendor.name }}</td>
                 <td>{{l.product.name }}</td>
                 <td>{{l.quantity }}</td>
-                <td>{{l.product.price }}</td>
-                <td>{{l.quantity * l.product.price }}</td>
+                <td>{{l.product.price | currency}} </td>
+                <td>{{l.quantity * l.product.price | currency}}</td>
                 <td>
                     <a routerLink="/line-item-edit/{{requestId}}/{{l.id}}">
                         <img src="images/pencil-icon.png" width="20" height="20" title="Edit Line Item" /></a>

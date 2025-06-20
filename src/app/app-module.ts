@@ -30,6 +30,7 @@ import { LineItemCreate } from './feature/line-item/line-item-create/line-item-c
 import { RequestReview } from './feature/request/request-review/request-review';
 import { LineItemReview } from './feature/line-item/line-item-review/line-item-review';
 import { Logout } from './feature/login/logout/logout';
+import { NotFound } from './core/not-found/not-found/not-found';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { Logout } from './feature/login/logout/logout';
     LineItemCreate,
     RequestReview,
     LineItemReview,
-    Logout
+    Logout,
+    NotFound
   ],
   imports: [
     BrowserModule,
