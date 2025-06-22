@@ -35,12 +35,12 @@ export class Login implements OnDestroy, OnInit{
       next :(resp) => {
         this.user = resp;
         this.authSvc.setUser(this.user);
-        this.router.navigateByUrl('/user-list');
+        window.location.href = '/user-list';
         
       },
       error: (err) => {
         console.log(err);
-        this.message = "Bad username and password";
+        this.message = "Incorrect username and password. Please try again!";
       }
     });
   }

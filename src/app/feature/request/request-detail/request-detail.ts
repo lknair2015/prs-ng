@@ -28,7 +28,9 @@ export class RequestDetail implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.loggedInUser = this.authSvc.getUser().username;
+    this.subscription = this.authSvc.user$.subscribe((user) => {
+      this.loggedInUser = user.username;
+    });
 
     this.actRoute.params.subscribe((parms) => {
         this.requestId = parms['id'];

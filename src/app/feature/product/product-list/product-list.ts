@@ -24,7 +24,9 @@ export class ProductList implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.loggedInUser = this.authSvc.getUser().username;
+    this.subscription = this.authSvc.user$.subscribe((user) => {
+      this.loggedInUser = user.username;
+    });
     
     this.subscription = this.ProductSvc.getAll().subscribe({
       next : (resp) => {

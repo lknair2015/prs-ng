@@ -26,8 +26,10 @@ export class RequestReview implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.loggedInUser = this.authSvc.getUser().username;
-    this.userId = this.authSvc.getUser().id;
+    this.subscription = this.authSvc.user$.subscribe((user) => {
+      this.loggedInUser = user.username;
+      this.userId = user.id;
+    });
 
     this.subscription = this.requestSvc.requestsForReview(this.userId).subscribe({
       next : (resp) => {

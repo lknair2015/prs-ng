@@ -52,7 +52,7 @@ const routes: Routes = [
   {path: 'line-item-review/:id', component: LineItemReview},
   {path: 'login', component: Login},
   {path: 'logout', component: Logout},
-  {path: '**' , component : NotFound}
+  {path: '**' , component: NotFound}
 ];
 
 @NgModule({

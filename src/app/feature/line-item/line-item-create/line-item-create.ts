@@ -42,7 +42,9 @@ export class LineItemCreate implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.loggedInUser = this.authSvc.getUser().username;
+    this.subscription = this.authSvc.user$.subscribe((user) => {
+      this.loggedInUser = user.username;
+    });
 
     this.activateRoute.params.subscribe((parms)=> {
 
@@ -53,7 +55,7 @@ export class LineItemCreate implements OnInit, OnDestroy{
           this.request = resp;
         },
         error: (err) =>{
-          console.log(err);
+          console.log("LineItem create, get request by id" , err);
         }
       });
 
@@ -62,7 +64,7 @@ export class LineItemCreate implements OnInit, OnDestroy{
           this.products = resp;
         },
         error : (err) => {
-          console.log(err);
+          console.log("Line item create, get all products", err);
         }
       });
       
@@ -79,9 +81,9 @@ export class LineItemCreate implements OnInit, OnDestroy{
         this.router.navigateByUrl('/line-item-list/'+ this.requestId);
       },
       error: (err) => {
-        console.log(err);
+        console.log("Line item create, add new lineitem", err);
       }
-    })
+    });
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

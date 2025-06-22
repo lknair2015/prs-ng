@@ -1,11 +1,24 @@
-<nav *ngIf="router.url !== '/login'">
+<nav *ngIf="activeComponent !== 'login' && activeComponent !== '**' && !user.admin">
     <ul class="nav nav-pills nav-fill">
         <li class=" nav-item">
-            <!-- <a class="nav-link" routerLink=""><img src="favicon.ico" alt="PRS" class="logo"></a>-->
-             <img src="images/PRS-logo-grey.png" width="60" height="60" title="PRS logo" style="margin-right: 10px;"/>
-            <!--<a class="nav-link" routerLink="" style="color: red; font-style: italic; font-weight: bold;">PRS</a>-->
+            <!--<a class="nav-link" routerLink=""><img src="favicon.ico" alt="PRS" class="logo"></a>-->
+            <img src="images/PRS-logo-grey.png" width="60" height="60" title="PRS logo" style="margin-right: 10px;" />
+            <!-- <a class="nav-link" routerLink="" style="color: red; font-style: italic; font-weight: bold;">PRS</a> -->
         </li>
-        <li class="nav-item" *ngFor="let mi of menuItems" title="{{ mi.toolTip}}">
+        <li class="nav-item" *ngFor="let mi of menuItemsNoAdmin" title="{{ mi.toolTip}}">
+            <a class="nav-link" routerLink="{{ mi.href }}">{{ mi.display }}</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav *ngIf="activeComponent !== 'login' && activeComponent !== '**' && user.admin">
+    <ul class="nav nav-pills nav-fill">
+        <li class=" nav-item">
+           <!-- <a class="nav-link" routerLink=""><img src="favicon.ico" alt="PRS" class="logo"></a>-->
+            <img src="images/PRS-logo-grey.png" width="60" height="60" title="PRS logo" style="margin-right: 10px;" />
+        <!--<a class="nav-link" routerLink="" style="color: red; font-style: italic; font-weight: bold;">PRS</a>-->
+        </li>
+        <li class="nav-item" *ngFor="let mi of menuItemsAdmin" title="{{ mi.toolTip}}">
             <a class="nav-link" routerLink="{{ mi.href }}">{{ mi.display }}</a>
         </li>
     </ul>

@@ -39,11 +39,11 @@ export class RequestCreate implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.loggedInUser = this.authSvc.getUser().username;
-
-    this.userFullName = this.authSvc.getUser().firstName +" "+ this.authSvc.getUser().lastName;
-  
-    this.requestNew.userId = this.authSvc.getUser().id;
+    this.subscription = this.authSvc.user$.subscribe((user) => {
+      this.loggedInUser = user.username;
+      this.userFullName = user.firstName + " " + user.lastName;
+      this.requestNew.userId = user.id;
+    });
     
   }
 

@@ -34,7 +34,9 @@ export class ProductCreate  implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.loggedInUser = this.authSvc.getUser().username;
+    this.subscription = this.authSvc.user$.subscribe((user) => {
+      this.loggedInUser = user.username;
+    });
 
     this.subscription = this.vendorSvc.getAll().subscribe({
       next: (resp) => {
