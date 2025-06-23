@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../../model/product';
-import { Subscription } from 'rxjs';
 import { ProductService } from '../../../service/product-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VendorService } from '../../../service/vendor-service';
 import { Vendor } from '../../../model/vendor';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-product-edit',
@@ -13,17 +13,13 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './product-edit.html',
   styleUrl: './product-edit.css'
 })
-export class ProductEdit implements OnInit, OnDestroy{
+export class ProductEdit extends Base implements OnInit, OnDestroy{
 
   title: string = "Product Edit";
-
-  loggedInUser : string = "temp";
 
   product! : Product;
 
   productId!: number;
-
-  subscription!: Subscription;
 
   vendors: Vendor[] = [];
 
@@ -32,10 +28,12 @@ export class ProductEdit implements OnInit, OnDestroy{
     private router: Router,
     private activateRoute: ActivatedRoute,
     private vendorSvc: VendorService,
-    private authSvc: AuthService
-  ){}
+    authSvc: AuthService
+  ){
+    super(authSvc);
+  }
 
-  ngOnInit(): void {  
+  override ngOnInit(): void {  
 
     this.subscription = this.authSvc.user$.subscribe((user) => {
       this.loggedInUser = user.username;
@@ -79,8 +77,5 @@ export class ProductEdit implements OnInit, OnDestroy{
     return a && b && a.id == b.id;
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  } 
 
 }

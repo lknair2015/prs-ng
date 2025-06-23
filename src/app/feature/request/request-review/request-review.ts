@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../service/request-service';
 import { AuthService } from '../../../service/auth-service';
 import { Request } from '../../../model/request';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-request-review',
@@ -10,26 +10,21 @@ import { Request } from '../../../model/request';
   templateUrl: './request-review.html',
   styleUrl: './request-review.css'
 })
-export class RequestReview implements OnInit, OnDestroy{
+export class RequestReview extends Base implements OnInit{
 
   title: string = 'Request List';
-
-  loggedInUser : string = "temp"; 
 
   userId! : number ;
 
   requests : Request[] = [];
 
-  subscription!: Subscription;
+  constructor(private requestSvc: RequestService, authSvc : AuthService ){
+    super(authSvc);
+  }
 
-  constructor(private requestSvc: RequestService, private authSvc : AuthService ){}
+  override ngOnInit(): void {
 
-  ngOnInit(): void {
-
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-      this.userId = user.id;
-    });
+  super.ngOnInit();
 
     this.subscription = this.requestSvc.requestsForReview(this.userId).subscribe({
       next : (resp) => {
@@ -39,10 +34,6 @@ export class RequestReview implements OnInit, OnDestroy{
         console.log(err);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

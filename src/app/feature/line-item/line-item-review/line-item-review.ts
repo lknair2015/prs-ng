@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../service/auth-service';
 import { Request } from '../../../model/request';
 import { RequestReject } from '../../../model/request-reject';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-line-item-review',
@@ -14,21 +15,17 @@ import { RequestReject } from '../../../model/request-reject';
   templateUrl: './line-item-review.html',
   styleUrl: './line-item-review.css'
 })
-export class LineItemReview implements OnInit, OnDestroy{
+export class LineItemReview extends Base implements OnInit, OnDestroy{
 
   title: string = "Purchase Request Approve/Reject";
 
   subTitle : string = "Line Items"
 
   lineItems : LineItem[] = [];
-  
-  loggedInUser : string = "";
 
   request! : Request;
 
   requestId !: number ; 
-
-  subscription ! : Subscription;
 
   requestReject  : RequestReject = new RequestReject(); 
   
@@ -36,16 +33,16 @@ export class LineItemReview implements OnInit, OnDestroy{
     private lineItemSvc : LineItemService, 
     private requestSvc : RequestService,
     private activateRoute : ActivatedRoute,
-    private authSvc : AuthService,
+    authSvc : AuthService,
     private router: Router
-  ){}
+  ){
+    super(authSvc);
+  }
  
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
     this.activateRoute.params.subscribe((parms)=> {
       this.requestId = parms['id'];
@@ -92,9 +89,4 @@ export class LineItemReview implements OnInit, OnDestroy{
       }
     });
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  } 
-
 }

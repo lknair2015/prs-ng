@@ -6,6 +6,7 @@ import { RequestService } from '../../../service/request-service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-line-item-list',
@@ -13,36 +14,33 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './line-item-list.html',
   styleUrl: './line-item-list.css'
 })
-export class LineItemList implements OnInit, OnDestroy{
+export class LineItemList extends Base implements OnInit, OnDestroy{
 
   title: string = "Purchase Request Line Items";
 
   subTitle : string = "Line Items"
 
   lineItems : LineItem[] = [];
-  
-  loggedInUser : string = "";
 
   request! : Request;
 
   requestId !: number ; 
-
-  subscription ! : Subscription;
   
   constructor(
     private lineItemSvc : LineItemService, 
     private requestSvc : RequestService,
     private activateRoute : ActivatedRoute,
-    private authSvc : AuthService,
+    authSvc : AuthService,
     private router: Router
-  ){}
+  ){
+    super(authSvc);
+  }
  
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
+    
     this.activateRoute.params.subscribe((parms)=> {
       this.requestId = parms['id'];
     });
@@ -91,9 +89,5 @@ export class LineItemList implements OnInit, OnDestroy{
     });
 
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  } 
 
 }

@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Request } from '../../../model/request';
-import { User } from '../../../model/user';
-import { Subscription } from 'rxjs';
 import { RequestService } from '../../../service/request-service';
 import { Router } from '@angular/router';
-import { UserService } from '../../../service/user-service';
 import { AuthService } from '../../../service/auth-service';
 import { RequestNew } from '../../../model/request-new';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-request-create',
@@ -14,11 +12,9 @@ import { RequestNew } from '../../../model/request-new';
   templateUrl: './request-create.html',
   styleUrl: './request-create.css'
 })
-export class RequestCreate implements OnInit, OnDestroy{
+export class RequestCreate extends Base implements OnInit, OnDestroy{
 
   title: string = "Request Create";
-
-  loggedInUser = "temp";
 
   requestNew : RequestNew  = new RequestNew();
 
@@ -26,24 +22,23 @@ export class RequestCreate implements OnInit, OnDestroy{
 
   request : Request = new Request();
 
-  subscription ! : Subscription;
-
   mode : string[] = ["Pickup", "Delivery"];
 
   constructor(
     private requestSvc: RequestService, 
     private router: Router, 
-    private userSvc : UserService , 
-    private authSvc: AuthService
-  ){}
+    _authSvc: AuthService
+  ){
+    super(_authSvc);
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-      this.userFullName = user.firstName + " " + user.lastName;
-      this.requestNew.userId = user.id;
-    });
+    super.ngOnInit();
+
+    this.requestNew.userId = this.user.id;
+
+    this.userFullName = this.user.firstName + " " + this.user.lastName;
     
   }
 
@@ -61,10 +56,5 @@ export class RequestCreate implements OnInit, OnDestroy{
     })
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
-  
 }
 

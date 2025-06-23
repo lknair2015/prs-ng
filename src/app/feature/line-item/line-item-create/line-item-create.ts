@@ -8,6 +8,7 @@ import { AuthService } from '../../../service/auth-service';
 import { ProductService } from '../../../service/product-service';
 import { RequestService } from '../../../service/request-service';
 import { Request } from '../../../model/request';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-line-item-create',
@@ -15,11 +16,9 @@ import { Request } from '../../../model/request';
   templateUrl: './line-item-create.html',
   styleUrl: './line-item-create.css'
 })
-export class LineItemCreate implements OnInit, OnDestroy{
+export class LineItemCreate extends Base implements OnInit, OnDestroy{
 
   title : string = "Line Item create";
-
-  loggedInUser: string = "";
 
   requestId! : number ;
 
@@ -27,24 +26,22 @@ export class LineItemCreate implements OnInit, OnDestroy{
 
   lineItem : LineItem = new LineItem();
 
-  subscription! : Subscription;
-
   products: Product[] = [];
   
   constructor(
     private lineItemSvc : LineItemService, 
     private router: Router,
     private activateRoute: ActivatedRoute,
-    private authSvc : AuthService,
+    authSvc : AuthService,
     private productSvc : ProductService,
     private requestSvc : RequestService
-  ){}
+  ){
+    super(authSvc);
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
     this.activateRoute.params.subscribe((parms)=> {
 
@@ -84,9 +81,6 @@ export class LineItemCreate implements OnInit, OnDestroy{
         console.log("Line item create, add new lineitem", err);
       }
     });
-  }
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

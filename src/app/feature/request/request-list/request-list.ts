@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../service/request-service';
 import { AuthService } from '../../../service/auth-service';
 import { Request } from '../../../model/request';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-request-list',
@@ -10,19 +10,17 @@ import { Request } from '../../../model/request';
   templateUrl: './request-list.html',
   styleUrl: './request-list.css'
 })
-export class RequestList implements OnInit, OnDestroy{
+export class RequestList extends Base implements OnInit{
 
   title: string = 'Request List';
 
-  loggedInUser : string = "temp"; 
-
   requests : Request[] = [];
 
-  subscription!: Subscription;
+  constructor(private requestSvc: RequestService, authSvc : AuthService ){
+    super(authSvc);
+  }
 
-  constructor(private requestSvc: RequestService, private authSvc : AuthService ){}
-
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
     this.subscription = this.authSvc.user$.subscribe((user) => {
       this.loggedInUser = user.username;
@@ -36,10 +34,6 @@ export class RequestList implements OnInit, OnDestroy{
         console.log(err);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

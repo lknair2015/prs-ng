@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Request } from '../../../model/request';
-import { Subscription } from 'rxjs';
 import { RequestService } from '../../../service/request-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-request-detail',
@@ -11,22 +11,23 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './request-detail.html',
   styleUrl: './request-detail.css'
 })
-export class RequestDetail implements OnInit, OnDestroy{
+export class RequestDetail extends Base implements OnInit{
 
   title: String = "Request Detail";
-
-  loggedInUser: string = "temp";
 
   request! : Request;
 
   requestId ! : number;
-
-  subscription! : Subscription;
   
+  constructor( private requestSvc: RequestService, 
+    private router : Router, 
+    private actRoute : ActivatedRoute, 
+    _authSvc : AuthService )
+    {
+    super(_authSvc);
+  }
 
-  constructor( private requestSvc: RequestService, private router : Router, private actRoute : ActivatedRoute, private authSvc : AuthService ){}
-
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
     this.subscription = this.authSvc.user$.subscribe((user) => {
       this.loggedInUser = user.username;
@@ -54,10 +55,6 @@ export class RequestDetail implements OnInit, OnDestroy{
         console.log(err);
       },
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
   }
 
 }

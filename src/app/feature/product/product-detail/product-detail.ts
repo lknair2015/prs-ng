@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../../model/product';
-import { Subscription } from 'rxjs';
 import { ProductService } from '../../../service/product-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,31 +11,26 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css'
 })
-export class ProductDetail implements OnInit, OnDestroy{
+export class ProductDetail extends Base implements OnInit, OnDestroy{
 
   title: String = "Product Detail";
-
-  loggedInUser: string = "";
 
   product! : Product;
 
   productId ! : number;
-
-  subscription! : Subscription;
   
-
   constructor( 
     private productSvc: ProductService, 
     private router : Router, 
     private actRoute : ActivatedRoute,
-    private authSvc : AuthService
-  ){}
+    _authSvc : AuthService
+  ){
+    super(_authSvc);
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
     this.actRoute.params.subscribe((parms) => {
         this.productId = parms['id'];
@@ -61,9 +56,7 @@ export class ProductDetail implements OnInit, OnDestroy{
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
+ 
 
 }
 

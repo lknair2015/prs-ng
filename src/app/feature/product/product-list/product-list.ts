@@ -3,6 +3,7 @@ import { Product } from '../../../model/product';
 import { ProductService } from '../../../service/product-service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-product-list',
@@ -10,23 +11,19 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './product-list.html',
   styleUrl: './product-list.css'
 })
-export class ProductList implements OnInit, OnDestroy{
+export class ProductList extends Base implements OnInit, OnDestroy{
 
   title: string = 'Product List';
 
-  loggedInUser : string = "temp"; 
-
   products : Product[] = [];
 
-  subscription!: Subscription;
+  constructor(private ProductSvc: ProductService, authSvc: AuthService){
+    super(authSvc);
+  }
 
-  constructor(private ProductSvc: ProductService, private authSvc: AuthService){}
+  override ngOnInit(): void {
 
-  ngOnInit(): void {
-
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
     
     this.subscription = this.ProductSvc.getAll().subscribe({
       next : (resp) => {
@@ -36,15 +33,6 @@ export class ProductList implements OnInit, OnDestroy{
         console.log(err);
       }
     });
-  }
-
-  delete(id : number) {
-    
-  }
-
-  
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

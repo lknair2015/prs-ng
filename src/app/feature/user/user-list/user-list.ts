@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
-import { Subscription } from 'rxjs';
 import { UserService } from '../../../service/user-service';
 import { AuthService } from '../../../service/auth-service';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-user-list',
@@ -11,23 +11,19 @@ import { NavigationEnd, Router } from '@angular/router';
   templateUrl: './user-list.html',
   styleUrl: './user-list.css'
 })
-export class UserList implements OnInit, OnDestroy{
+export class UserList extends Base implements OnInit{
 
   title: string = 'User List';
-
-  loggedInUser : string = "temp"; 
-
   users : User[] = [];
 
-  subscription!: Subscription;
+  constructor(private userSvc: UserService, authSvc : AuthService,  private router : Router){
 
-  constructor(private userSvc: UserService, private authSvc : AuthService, private router : Router){}
+    super(authSvc);
+  }
 
-  ngOnInit(): void {
-    
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+  override ngOnInit(): void {
+
+    super.ngOnInit();
     
     this.subscription = this.userSvc.getAll().subscribe({
       next : (resp) => {
@@ -38,11 +34,5 @@ export class UserList implements OnInit, OnDestroy{
       }
     });
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  
 
 }

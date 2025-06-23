@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
 import { RequestService } from '../../../service/request-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../service/user-service';
 import { AuthService } from '../../../service/auth-service';
 import { Request } from '../../../model/request';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-request-edit',
@@ -13,17 +13,13 @@ import { Request } from '../../../model/request';
   templateUrl: './request-edit.html',
   styleUrl: './request-edit.css'
 })
-export class RequestEdit implements OnInit, OnDestroy{
+export class RequestEdit extends Base implements OnInit{
 
   title: string = "Request Edit";
-
-  loggedInUser : string = "temp";
 
   request! : Request;
 
   requestId!: number;
-
-  subscription!: Subscription;
 
   users: User[] = [];
 
@@ -34,14 +30,14 @@ export class RequestEdit implements OnInit, OnDestroy{
     private router: Router,
     private activateRoute: ActivatedRoute,
     private userSvc: UserService,
-    private authSvc : AuthService
-  ){}
+    authSvc : AuthService
+  ){
+    super(authSvc);
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
     this.activateRoute.params.subscribe((parms)=>{
       this.requestId = parms['id'];
@@ -80,10 +76,6 @@ export class RequestEdit implements OnInit, OnDestroy{
   compVendor(a: User, b: User): boolean {
     return a && b && a.id == b.id;
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  } 
 
 }
 

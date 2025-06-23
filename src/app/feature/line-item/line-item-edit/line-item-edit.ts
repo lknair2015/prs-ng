@@ -6,6 +6,7 @@ import { AuthService } from '../../../service/auth-service';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../service/product-service';
 import { Product } from '../../../model/product';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-line-item-edit',
@@ -13,11 +14,9 @@ import { Product } from '../../../model/product';
   templateUrl: './line-item-edit.html',
   styleUrl: './line-item-edit.css'
 })
-export class LineItemEdit implements OnInit, OnDestroy{
+export class LineItemEdit extends Base implements OnInit, OnDestroy{
 
   title : string = "Line Item edit";
-
-  loggedInUser: string = "";
 
   lineItemId! : number ;
 
@@ -25,23 +24,21 @@ export class LineItemEdit implements OnInit, OnDestroy{
 
   lineItem! : LineItem;
 
-  subscription! : Subscription;
-
   products: Product[] = [];
   
   constructor(
     public lineItemSvc : LineItemService, 
     public router: Router,
     public activateRoute: ActivatedRoute,
-    public authSvc : AuthService,
+    authSvc : AuthService,
     public productSvc : ProductService
-  ){}
+  ){
+    super(authSvc);
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
     this.activateRoute.params.subscribe((parms)=> {
 
@@ -86,9 +83,5 @@ export class LineItemEdit implements OnInit, OnDestroy{
       return a && b && a.id == b.id;
   }
 
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
 }

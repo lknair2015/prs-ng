@@ -11,7 +11,7 @@
     <tr>
       <th>Username: </th>
       <td>
-        <input [(ngModel)]="user.username" type="text" class="form-control border border-dark rounded"
+        <input [(ngModel)]="newUser.username" type="text" class="form-control border border-dark rounded"
           title="username" />
       </td>
     </tr>
@@ -19,7 +19,7 @@
     <tr>
       <th>Password:</th>
       <td>
-        <input [(ngModel)]="user.password" type="text" class="form-control border border-dark rounded"
+        <input [(ngModel)]="newUser.password" type="text" class="form-control border border-dark rounded"
           title="password" />
       </td>
     </tr>
@@ -27,7 +27,7 @@
     <tr>
       <th>First Name:</th>
       <td>
-        <input [(ngModel)]="user.firstName" type="text" class="form-control border border-dark rounded"
+        <input [(ngModel)]="newUser.firstName" type="text" class="form-control border border-dark rounded"
           title="firstName" />
       </td>
     </tr>
@@ -35,7 +35,7 @@
     <tr>
       <th>Last Name:</th>
       <td>
-        <input [(ngModel)]="user.lastName" type="text" class="form-control border border-dark rounded"
+        <input [(ngModel)]="newUser.lastName" type="text" class="form-control border border-dark rounded"
           title="lastname" />
       </td>
     </tr>
@@ -43,7 +43,7 @@
     <tr>
       <th>Phone Number:</th>
       <td>
-        <input [(ngModel)]="user.phoneNumber" type="text" class="form-control border border-dark rounded"
+        <input [(ngModel)]="newUser.phoneNumber" type="text" class="form-control border border-dark rounded"
           title="phoneNumber" />
       </td>
     </tr>
@@ -51,21 +51,21 @@
     <tr>
       <th>Email:</th>
       <td>
-        <input [(ngModel)]="user.email" type="text" class="form-control border border-dark rounded" title="email" />
+        <input [(ngModel)]="newUser.email" type="text" class="form-control border border-dark rounded" title="email" />
       </td>
     </tr>
     <br>
     <tr>
       <th>Reviewer:</th>
       <td>
-        <input [(ngModel)]="user.reviewer" type="checkbox" style="border: solid;" [value]="user.reviewer" />
+        <input [(ngModel)]="newUser.reviewer" type="checkbox" style="border: solid;" [value]="user.reviewer" />
       </td>
     </tr>
     <br>
     <tr>
       <th>Admin:</th>
       <td>
-        <input [(ngModel)]="user.admin" type="checkbox" style="border: solid;" [value]="user.admin" />
+        <input [(ngModel)]="newUser.admin" type="checkbox" style="border: solid;" [value]="user.admin" />
       </td>
     </tr>
   </table>

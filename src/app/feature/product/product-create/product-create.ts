@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { VendorService } from '../../../service/vendor-service';
 import { Vendor } from '../../../model/vendor';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-product-create',
@@ -13,30 +14,27 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './product-create.html',
   styleUrl: './product-create.css'
 })
-export class ProductCreate  implements OnInit, OnDestroy{
+export class ProductCreate extends Base  implements OnInit, OnDestroy{
 
   title: string = "Product Create";
-
-  loggedInUser = "temp";
 
   product : Product = new Product();
 
   vendors: Vendor[] = [];
 
-  subscription ! : Subscription;
-
   constructor(
     private productSvc: ProductService,
     private router: Router, 
     private vendorSvc : VendorService,
-    private authSvc : AuthService
-  ){}
+    authSvc : AuthService
+  ){
 
-  ngOnInit(): void {
+    super(authSvc);
+  }
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+  override ngOnInit(): void {
+
+    super.ngOnInit();
 
     this.subscription = this.vendorSvc.getAll().subscribe({
       next: (resp) => {
@@ -60,10 +58,4 @@ export class ProductCreate  implements OnInit, OnDestroy{
       }
     })
   }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
-  
 }

@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
-import { Subscription } from 'rxjs';
 import { UserService } from '../../../service/user-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,25 +11,27 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './user-edit.html',
   styleUrl: './user-edit.css'
 })
-export class UserEdit implements OnInit, OnDestroy {
+export class UserEdit extends Base implements OnInit {
 
   title: string = 'User Edit';
 
-  loggedInUser : string = 'temp';
-
-  user! : User;
+  override user : User = new User();
 
   userId! : number;
 
-  subscription! : Subscription;
+  constructor(
+  private userSvc : UserService, 
+  private router: Router, 
+  private activateRoute: ActivatedRoute, 
+  _authSvc : AuthService){
+  
+  super(_authSvc);
+  
+  }
 
-  constructor(private userSvc : UserService, private router: Router, private activateRoute: ActivatedRoute, private authSvc : AuthService){}
+  override ngOnInit(): void {
 
-  ngOnInit(): void {
-
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
     this.activateRoute.params.subscribe((parms) => {
       this.userId = parms['id'];
@@ -55,9 +57,4 @@ export class UserEdit implements OnInit, OnDestroy {
       }
     })
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  } 
-
 }

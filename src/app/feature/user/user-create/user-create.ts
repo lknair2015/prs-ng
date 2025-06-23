@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../../../model/user';
-import { Subscription } from 'rxjs';
 import { UserService } from '../../../service/user-service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-user-create',
@@ -11,27 +11,19 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './user-create.html',
   styleUrl: './user-create.css'
 })
-export class UserCreate implements OnInit, OnDestroy{
+export class UserCreate extends Base {
 
   title: string = "User Create";
 
-  loggedInUser = "temp";
+  newUser : User = new User();
 
-  user : User = new User();
-
-  subscription ! : Subscription;
-
-  constructor(private userSvc: UserService, private router: Router, private authSvc: AuthService){}
-
-  ngOnInit(): void {
-    
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+  constructor(private userSvc: UserService, private router: Router, authSvc: AuthService){
+    super(authSvc);
   }
 
+
   add(): void {
-    this.subscription = this.userSvc.add(this.user).subscribe({
+    this.subscription = this.userSvc.add(this.newUser).subscribe({
       next: (resp) => {
         this.user = resp;
         this.router.navigateByUrl('/user-list');
@@ -42,9 +34,7 @@ export class UserCreate implements OnInit, OnDestroy{
     })
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
+ 
 
   
 }

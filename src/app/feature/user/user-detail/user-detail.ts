@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
-import { Subscription } from 'rxjs';
 import { UserService } from '../../../service/user-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-user-detail',
@@ -11,31 +11,27 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.css'
 })
-export class UserDetail implements OnInit, OnDestroy{
+export class UserDetail extends Base implements OnInit{
 
   title: String = "User Detail";
 
-  loggedInUser: string = "temp";
-
-  user! : User;
+  override user : User = new User();
 
   userId ! : number;
-
-  subscription! : Subscription;
   
 
   constructor( 
     private userSvc: UserService, 
     private router : Router, 
     private actRoute : ActivatedRoute,
-    private authSvc : AuthService
-   ){}
+    _authSvc : AuthService
+   ){
+    super(_authSvc);
+   }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
     this.actRoute.params.subscribe((parms) => {
         this.userId = parms['id'];
@@ -52,17 +48,13 @@ export class UserDetail implements OnInit, OnDestroy{
 
   delete() {
     this.userSvc.delete(this.userId).subscribe({
-      next: (resp) => {
+      next: (_resp) => {
         this.router.navigateByUrl('/user-list');
       },
       error: (err) => {
         console.log(err);
       },
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
   }
 
 }
