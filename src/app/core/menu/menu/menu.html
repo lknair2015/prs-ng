@@ -1,4 +1,4 @@
-<nav *ngIf="activeComponent !== 'login' && activeComponent !== '**' && !user.admin">
+<nav *ngIf="activeComponent !== 'login' && activeComponent !== '**' && !user.reviewer">
     <ul class="nav nav-pills nav-fill">
         <li class=" nav-item">
             <!--<a class="nav-link" routerLink=""><img src="favicon.ico" alt="PRS" class="logo"></a>-->
@@ -11,7 +11,7 @@
         
     </ul>
 </nav>
-<nav *ngIf="activeComponent !== 'login' && activeComponent !== '**' && user.admin">
+<nav *ngIf="activeComponent !== 'login' && activeComponent !== '**' && user.reviewer">
     <ul class="nav nav-pills nav-fill">
         <li class=" nav-item">
            <!-- <a class="nav-link" routerLink=""><img src="favicon.ico" alt="PRS" class="logo"></a>-->

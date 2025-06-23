@@ -4,15 +4,18 @@
             <span class="fw-bold fst-italic">[{{ title }}]</span>
             <a style="padding-left: 20px;" routerLink="/request-list">Return to List</a>
         </div>
-        <span style="margin: 10px;"  class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
+        <span style="margin: 10px;" class="fw-bold fst-italic">Hello, {{loggedInUser}}</span>
     </section>
     <br>
-    <table *ngIf="request" class="table table-striped table-hover">
+    <table *ngIf="request" class="table table-striped table-hover table-bordered">
         <thead>
-            <th>User</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Total</th>
+            <tr>
+                <th>User</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th *ngIf="request.status == 'REJECTED'">Reason for rejection</th>
+            </tr>
         </thead>
         <tbody>
             <tr>
@@ -20,6 +23,7 @@
                 <td>{{ request.description }}</td>
                 <td>{{ request.status}}</td>
                 <td>{{ request.total | currency}}</td>
+                <td *ngIf="request.status == 'REJECTED'">{{ request.reasonForRejection}}</td>
             </tr>
         </tbody>
     </table>
@@ -32,15 +36,17 @@
             </a>
         </div>
     </section>
-
-    <table *ngIf="lineItems" class="table table-striped table-hover">
+    <br>
+    <table *ngIf="lineItems" class="table table-striped table-hover table-bordered">
         <thead>
-            <th>Vendor</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Line Total</th>
-            <th>Action</th>
+            <tr>
+                <th>Vendor</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Line Total</th>
+                <th *ngIf="request.status == 'NEW'">Action</th>
+            </tr>
         </thead>
         <tbody>
             <tr *ngFor="let l of lineItems">
@@ -49,18 +55,19 @@
                 <td>{{l.quantity }}</td>
                 <td>{{l.product.price | currency}} </td>
                 <td>{{l.quantity * l.product.price | currency}}</td>
-                <td>
+                <td *ngIf="request.status == 'NEW'">
                     <a routerLink="/line-item-edit/{{requestId}}/{{l.id}}">
                         <img src="images/pencil-icon.png" width="20" height="20" title="Edit Line Item" /></a>
                     |
                     <a>
-                        <img src="images/delete.jpg" width="20" height="20" title="Delete Line Item" (click)="delete(l.id)" />
+                        <img src="images/delete.jpg" width="20" height="20" title="Delete Line Item"
+                            (click)="delete(l.id)" />
                     </a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <span *ngIf="lineItems.length != 0 ">
+    <span *ngIf="lineItems.length != 0 && request.status == 'NEW' ">
         <button type="submit" class="btn btn-primary mb-2" (click)="submit()">Submit</button>
     </span>
     <span *ngIf="lineItems.length == 0">

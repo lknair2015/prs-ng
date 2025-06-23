@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Vendor } from '../../../model/vendor';
-import { Subscription } from 'rxjs';
 import { VendorService } from '../../../service/vendor-service';
 import { AuthService } from '../../../service/auth-service';
+import { Base } from '../../base/base';
 
 @Component({
   selector: 'app-vendor-list',
@@ -10,23 +10,21 @@ import { AuthService } from '../../../service/auth-service';
   templateUrl: './vendor-list.html',
   styleUrl: './vendor-list.css'
 })
-export class VendorList implements OnInit, OnDestroy{
+export class VendorList extends Base implements OnInit{
 
   title: string = 'Vendor List';
 
-  loggedInUser : string = "temp"; 
-
   vendors : Vendor[] = [];
 
-  subscription!: Subscription;
+  constructor(private vendorSvc: VendorService, _authSvc : AuthService){
+    super(_authSvc);
+  }
 
-  constructor(private vendorSvc: VendorService, private authSvc : AuthService){}
+  override ngOnInit(): void {
 
-  ngOnInit(): void {
+    super.ngOnInit();
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    console.log("admin", this.user.admin)
 
     this.subscription = this.vendorSvc.getAll().subscribe({
       next : (resp) => {
@@ -37,12 +35,6 @@ export class VendorList implements OnInit, OnDestroy{
       }
     });
   }
-    
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  
 
 }
 

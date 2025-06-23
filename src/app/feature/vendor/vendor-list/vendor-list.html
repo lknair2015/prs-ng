@@ -35,7 +35,7 @@
         <td>{{ v.email}}</td>
 
         <td>
-          <a routerLink="/vendor-edit/{{v.id}}">
+          <a *ngIf="user.admin" routerLink="/vendor-edit/{{v.id}}">
             <img src="images/pencil-icon.png" width="20" height="20" title="Edit Vendor" /></a>
           |
           <a routerLink="/vendor-detail/{{v.id}}">

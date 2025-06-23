@@ -31,7 +31,7 @@
         <td>{{ p.photoPath}}</td>
 
         <td>
-          <a routerLink="/product-edit/{{p.id}}">
+          <a *ngIf="user.admin" routerLink="/product-edit/{{p.id}}">
             <img src="images/pencil-icon.png" width="20" height="20" title="Edit Product" /></a>
           |
           <a routerLink="/product-detail/{{p.id}}">

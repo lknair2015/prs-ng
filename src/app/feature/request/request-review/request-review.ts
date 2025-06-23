@@ -24,9 +24,9 @@ export class RequestReview extends Base implements OnInit{
 
   override ngOnInit(): void {
 
-  super.ngOnInit();
+    super.ngOnInit();
 
-    this.subscription = this.requestSvc.requestsForReview(this.userId).subscribe({
+    this.subscription = this.requestSvc.requestsForReview(this.user.id).subscribe({
       next : (resp) => {
         this.requests = resp;
       },

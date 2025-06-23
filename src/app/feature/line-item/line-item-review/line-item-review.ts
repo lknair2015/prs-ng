@@ -80,6 +80,8 @@ export class LineItemReview extends Base implements OnInit, OnDestroy{
   }
 
   reject(): void {
+
+    console.log(this.requestReject);
     this.subscription = this.requestSvc.reject(this.requestId, this.requestReject).subscribe({
       next: () => {
         this.router.navigateByUrl('/request-review');

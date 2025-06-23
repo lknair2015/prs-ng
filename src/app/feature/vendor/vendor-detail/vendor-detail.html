@@ -72,7 +72,7 @@
       </tr>
     </table>
   </main>
-  <span>
+  <span *ngif="user.admin">
     <span><a routerLink="/vendor-edit/{{ vendor.id }}" class="btn btn-sm btn-warning">Edit</a></span>
     <span style="padding-left: 20px;">
 

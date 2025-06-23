@@ -22,18 +22,29 @@ export class RequestList extends Base implements OnInit{
 
   override ngOnInit(): void {
 
-    this.subscription = this.authSvc.user$.subscribe((user) => {
-      this.loggedInUser = user.username;
-    });
+    super.ngOnInit();
 
-    this.subscription = this.requestSvc.getAll().subscribe({
-      next : (resp) => {
-        this.requests = resp;
-      },
-      error : (err) => {
-        console.log(err);
-      }
-    });
+    if(this.user.admin ){
+
+      this.subscription = this.requestSvc.getAll().subscribe({
+        next : (resp) => {
+          this.requests = resp;
+        },
+        error : (err) => {
+         console.log(err);
+       }
+      });
+    }
+    else{
+      this.subscription = this.requestSvc.getByUserId(this.user.id).subscribe({
+        next : (resp) => {
+          this.requests = resp;
+        },
+        error : (err) => {
+         console.log(err);
+       }
+      });
+    }
   }
 
 }

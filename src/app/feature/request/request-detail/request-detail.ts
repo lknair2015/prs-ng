@@ -38,6 +38,7 @@ export class RequestDetail extends Base implements OnInit{
         this.subscription = this.requestSvc.getById(this.requestId).subscribe({
           next: (resp) => {
             this.request = resp;
+            console.log(this.request);
           },
           error: (err) => {
             console.log(err);

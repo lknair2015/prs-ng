@@ -13,7 +13,7 @@ export class Request{
         public status : string = "",
         public total : number = 0.0,
         public submittedDate : Date = new Date(),
-        public reasonForJustification : string = ""
+        public reasonForRejection : string = ""
     ){}
     
 }

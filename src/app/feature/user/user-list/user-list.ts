@@ -24,6 +24,10 @@ export class UserList extends Base implements OnInit{
   override ngOnInit(): void {
 
     super.ngOnInit();
+
+    if(this.loggedInUser == null){
+      this.router.navigateByUrl('/login');
+    }
     
     this.subscription = this.userSvc.getAll().subscribe({
       next : (resp) => {
